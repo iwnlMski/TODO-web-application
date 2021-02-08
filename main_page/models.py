@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 class Bundle(models.Model):
     name = models.CharField(max_length=256, unique=True)
-    created_date = models.DateField(auto_now_add=True)
+    created_date = models.DateTimeField('date of creation')
     # tasks_done = models.IntegerField(default=0)
     # tasks_in_progress = models.IntegerField(default=0)
     # tasks_to_do = models.IntegerField(default=0)
