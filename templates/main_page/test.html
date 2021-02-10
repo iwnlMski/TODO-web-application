@@ -1,10 +1,92 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>This is a test html</title>
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <h1>This is a test</h1>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand">Workflow</a>
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/anothersite">New list</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h3>Create a new list</h3>
+        <div class="input-group w-50 mx-auto">
+            <input type="text" class="form-control" placeholder="Title of your list" aria-label="" aria-describedby="basic-addon1">
+            <div class="input-group-append">
+                <button class="btn btn-success" type="button">Save list</button>
+            </div>
+        </div>
+        <table class="table table-hover w-50 mx-auto">
+            <tbody>
+                <tr class="table-primary">
+                   <td>
+                       <div class="input-group">
+                           <input type="text" class="form-control" placeholder="Task to do" aria-label="" aria-describedby="basic-addon1">
+                           <div class="input-group-append">
+                               <button class="btn btn-info" type="button">Add</button>
+                           </div>
+                        </div>
+                   </td>
+                </tr>
+                <tr class="table-primary">
+                   <td class="table-info">
+                       Hello
+                       <button class="btn btn-warning float-end" type="button">Change</button>
+                       <button class="btn btn-danger float-end" type="button">Delete</button>
+                   </td>
+                </tr>
+                <tr class="table-primary">
+                    <td><button type="button" class="btn btn-info">New Task</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+{#        <table class="table table-primary table-striped table-hover w-50 mx-auto">#}
+{#            <thead>#}
+{#                <tr class="table-dark">#}
+{#                    <td class="table-dark">Name</td>#}
+{#                    <td class="table-dark">Date</td>#}
+{#                    <td class="table-dark">Actions</td>#}
+{#                </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#            {% if all_bundles_list %}#}
+{#                {% for bundle in all_bundles_list %}#}
+{#                    <tr>#}
+{#                        <td>first</td>#}
+{#                        <td>10.10.2000</td>#}
+{#                        <td>delete_btn share_btn</td>#}
+{#                    </tr>#}
+{#                {% endfor %}#}
+{#            {% else %}#}
+{#                <tr>#}
+{#                    <td><a href="/anothersite">No lists yet, create one and get to work!</a></td>#}
+{#                    <td></td>#}
+{#                    <td></td>#}
+{#                </tr>#}
+{##}
+{#            {% endif %}#}
+{#            </tbody>#}
+{#        </table>#}
+    </div>
+
 </body>
 </html>

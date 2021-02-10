@@ -3,5 +3,5 @@ from main_page import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('anothersite', views.test(), name='test'),
+    path('anothersite', views.test, name='test'),
 ]

@@ -9,18 +9,23 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand">Workflow</a>
-        <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="">Home</a>
-            </li>
-        </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand">Workflow</a>
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/anothersite">New list</a>
+                </li>
+            </ul>
+        </div>
     </nav>
 
     <div class="container">
         <h3>Here are all of your lists of tasks</h3>
-        <table class="table table-primary table-striped table-hover table-responsive-sm">
+        <table class="table table-primary table-striped table-hover w-50 mx-auto">
             <thead>
                 <tr class="table-dark">
                     <td class="table-dark">Name</td>
