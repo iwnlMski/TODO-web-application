@@ -1,24 +1,53 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand">TODO</a>
+        <a class="navbar-brand">Workflow</a>
         <ul class="navbar-nav me-auto">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="">Home</a>
             </li>
         </ul>
     </nav>
 
     <div class="container">
-        <h1>Here is nothing yet</h1>
+        <h3>Here are all of your lists of tasks</h3>
+        <table class="table table-primary table-striped table-hover table-responsive-sm">
+            <thead>
+                <tr class="table-dark">
+                    <td class="table-dark">Name</td>
+                    <td class="table-dark">Date</td>
+                    <td class="table-dark">Actions</td>
+                </tr>
+            </thead>
+            <tbody>
+            {% if all_bundles_list %}
+                {% for bundle in all_bundles_list %}
+                    <tr>
+                        <td>first</td>
+                        <td>10.10.2000</td>
+                        <td>delete_btn share_btn</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td><a href="/anothersite">No lists yet, create one and get to work!</a></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+            {% endif %}
+            </tbody>
+        </table>
     </div>
+
 </body>
 </html>

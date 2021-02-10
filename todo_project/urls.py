@@ -21,5 +21,6 @@ from main_page import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main_page.urls')),
+    path('/anothersite', include('main_page.urls')),
     path('', views.index, name='index'),
 ]
