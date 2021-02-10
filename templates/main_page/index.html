@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
@@ -28,8 +28,8 @@
         <table class="table table-primary table-striped table-hover w-50 mx-auto">
             <thead>
                 <tr class="table-dark">
-                    <td class="table-dark">Name</td>
-                    <td class="table-dark">Date</td>
+                    <td class="table-dark">Name of list</td>
+                    <td class="table-dark">Created</td>
                     <td class="table-dark">Actions</td>
                 </tr>
             </thead>
@@ -37,9 +37,12 @@
             {% if all_bundles_list %}
                 {% for bundle in all_bundles_list %}
                     <tr>
-                        <td>first</td>
-                        <td>10.10.2000</td>
-                        <td>delete_btn share_btn</td>
+                        <td>{{ bundle.name }}</td>
+                        <td>{{ bundle.created_date }}</td>
+                        <td>
+                            <button class="btn btn-sm btn-success float-end" type="button">Share</button>
+                            <button class="btn btn-sm btn-danger float-end" type="button">Delete</button>
+                        </td>
                     </tr>
                 {% endfor %}
             {% else %}
@@ -48,7 +51,6 @@
                     <td></td>
                     <td></td>
                 </tr>
-
             {% endif %}
             </tbody>
         </table>
