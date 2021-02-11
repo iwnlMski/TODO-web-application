@@ -5,7 +5,7 @@ from .models import Bundle, Task
 def index(request):
     all_bundles_list = Bundle.objects.all()
     context = {'all_bundles_list': all_bundles_list}
-    my_dict = {"test": "test"}
+    print(request.POST)
     return render(request, 'main_page/index.html', context)
 
 
