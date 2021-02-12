@@ -1,4 +1,9 @@
 $(document).ready(function(){
+    const integrity_err = JSON.parse(document.getElementById('integrity_error').textContent)
+    if(integrity_err){
+        alert(integrity_err)
+    }
+
     const number_of_bundles = JSON.parse(document.getElementById('data_json').textContent)
     var modal = $('#delete_assurance_modal')
     var span = $('.close_modal_assurance')

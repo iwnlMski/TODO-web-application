@@ -1,13 +1,19 @@
 from django.shortcuts import render
 from .models import Bundle, Task
 from django.utils import timezone
+from django.db import IntegrityError
 
 
 def index(request):
     context = {'all_bundles_list': Bundle.objects.all(), 'data_json': len(Bundle.objects.all())}
     data_from_site = request.POST
     if data_from_site:
-        create_new_bundle_and_tasks(data_from_site.get('new_bundle_name'), data_from_site.getlist('list_of_tasks'))
+        try:
+            create_new_bundle_and_tasks(data_from_site.get('new_bundle_name'), data_from_site.getlist('list_of_tasks'))
+        except IntegrityError:
+            print("it didnt work")
+            context['IntegrityError'] = 'Couldnt create bundle with that name. Already exists bundle with that name'
+
     return render(request, 'main_page/index.html', context)
 
 
