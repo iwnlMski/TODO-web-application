@@ -15,7 +15,7 @@ class Bundle(models.Model):
 
 class Task(models.Model):
     name_of_bundle = models.ForeignKey(Bundle, on_delete=models.CASCADE)
-    task_to_be_done = models.CharField(max_length=256)
+    task_description = models.CharField(max_length=256)
 
     def __str__(self):
-        return self.task_to_be_done
+        return self.task_description

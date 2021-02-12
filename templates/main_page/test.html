@@ -6,7 +6,8 @@
     <title>Create new list</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-    <script src="{% static 'js/scripts.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="{% static '/scripts.js' %}" type="text/javascript"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -25,20 +26,30 @@
 
     <form action="{% url 'main_page:index' %}" method="post">
         <div class="container">
-            <h3>Create a new list</h3>
+            <h3 id="add_new_task">Create a new list</h3>
                 {% csrf_token %}
                 <div class="input-group w-50 mx-auto">
-                <input type="text" name="new_list_name" class="form-control" placeholder="Title of your list" aria-label="" aria-describedby="basic-addon1">
+                <input type="text" name="new_bundle_name" class="form-control" placeholder="Title of your list" aria-label="" aria-describedby="basic-addon1">
                 <div class="input-group-append">
                     <button class="btn btn-success" type="submit" value="new_list">Save list</button>
                 </div>
             </div>
             <table class="table table-hover w-50 mx-auto">
-                <tbody>
+                <tbody id="task_list">
                     <tr class="table-primary">
                        <td>
                            <div class="input-group">
-                               <input type="text" class="form-control" placeholder="Task to do" aria-label="" aria-describedby="basic-addon1">
+                               <input type="text" name="list_of_tasks" class="form-control" placeholder="Task to do" aria-label="" aria-describedby="basic-addon1">
+                               <div class="input-group-append">
+                                   <button class="btn btn-info" type="button">Add</button>
+                               </div>
+                            </div>
+                       </td>
+                    </tr>
+                    <tr class="table-primary">
+                       <td>
+                           <div class="input-group">
+                               <input type="text" name="list_of_tasks" class="form-control" placeholder="Task to do" aria-label="" aria-describedby="basic-addon1">
                                <div class="input-group-append">
                                    <button class="btn btn-info" type="button">Add</button>
                                </div>
@@ -51,9 +62,6 @@
 {#                           <button class="btn btn-sm btn-warning float-end" type="button">Change</button>#}
 {#                           <button class="btn btn-sm btn-danger float-end" type="button">Delete</button>#}
 {#                       </td>#}
-{#                    </tr>#}
-{#                    <tr class="table-primary">#}
-{#                        <td><button type="button" class="btn btn-info">New Task</button></td>#}
 {#                    </tr>#}
                 </tbody>
             </table>
