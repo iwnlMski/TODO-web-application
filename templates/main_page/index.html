@@ -40,14 +40,16 @@
                 </tr>
             </thead>
             <tbody>
+            {{ data_json|json_script:"data_json" }}
+            <script id="data_json" type="application/json"></script>
             {% if all_bundles_list %}
                 {% for bundle in all_bundles_list %}
                     <tr>
                         <td>{{ bundle.name }}</td>
                         <td>{{ bundle.created_date }}</td>
                         <td>
-                                <button class="btn btn-sm btn-success float-end" type="button">Share</button>
-                                <button class="btn btn-sm btn-danger float-end" type="button" id="delete_assurance">Delete</button>
+                            <button class="btn btn-sm btn-success float-end" type="button">Share</button>
+                            <button class="btn btn-sm btn-danger float-end" type="button" id="delete_assurance{{ forloop.counter0 }}">Delete</button>
 
                             <div id="delete_assurance_modal" class="modal_assurance">
                                 <div class="modal_assurance_content">
@@ -55,7 +57,6 @@
                                     <p>{{ bundle.name }}</p>
                                 </div>
                             </div>
-
                         </td>
                     </tr>
                 {% endfor %}
@@ -68,10 +69,6 @@
             {% endif %}
             </tbody>
         </table>
-
-
-
     </div>
-
 </body>
 </html>
