@@ -12,7 +12,7 @@ def index(request):
             create_new_bundle_and_tasks(data_from_site.get('new_bundle_name'), data_from_site.getlist('list_of_tasks'))
         except IntegrityError:
             print("it didnt work")
-            context['IntegrityError'] = 'Couldnt create bundle with that name. Already exists bundle with that name'
+            context['IntegrityError'] = 'Couldn\'t create bundle. Bundle with that name already exists '
 
     return render(request, 'main_page/index.html', context)
 
