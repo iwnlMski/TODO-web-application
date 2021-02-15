@@ -53,18 +53,12 @@
                         <td>{{ bundle.name }}</td>
                         <td>{{ bundle.created_date }}</td>
                         <td>
-                            <button class="btn btn-sm btn-danger float-end" type="button" id="delete_assurance{{ forloop.counter0 }}">Delete</button>
-                            <button class="btn btn-sm btn-primary float-end" type="button">Share</button>
+                            <button value="{{ bundle.name }}" class="btn btn-sm btn-danger float-end delete_button" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Delete</button>
+                            <button class="btn btn-sm btn-primary float-end" type="button" >Share</button>
                             <form action="{% url 'main_page:show_tasks' %}" method="post">
                                 {% csrf_token %}
                                 <button name="bundle_choice" value="{{ bundle.name }}" class="btn btn-sm btn-success float-end" type="submit">Go to</button>
                             </form>
-                            <div id="delete_assurance_modal" class="modal_assurance">
-                                <div class="modal_assurance_content">
-                                    <span class="close_modal_assurance">&times;</span>
-                                    <p>{{ bundle.name }}</p>
-                                </div>
-                            </div>
                         </td>
                     </tr>
                 {% endfor %}
@@ -77,6 +71,23 @@
             {% endif %}
             </tbody>
         </table>
+    </div>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Delete Warning</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h1 class="display-6 text-center" id="delete_content">Are you sure you want to delete ?</h1>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger">Delete</button>
+          </div>
+        </div>
+      </div>
     </div>
 </body>
 </html>
