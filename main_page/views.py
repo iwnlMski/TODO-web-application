@@ -27,8 +27,11 @@ def test(request):
 
 def show_tasks(request):
     data_from_site = request.POST
-    bundle_name = data_from_site.get('bundle_choice')
-    context = {'bundle': get_bundle_by_name(bundle_name).task_set.all()}
+    if data_from_site:
+        bundle_name = data_from_site.get('bundle_choice')
+        context = {'bundle': get_bundle_by_name(bundle_name).task_set.all()}
+    else:
+        context = {}
     return render(request, 'main_page/listtasks.html', context)
 
 
