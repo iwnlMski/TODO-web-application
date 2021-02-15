@@ -32,8 +32,8 @@
         </div>
     </nav>
 
-    <div class="container">
-        <h3>Here are all of your lists of tasks</h3>
+    <div class="container mt-5">
+        <h1 class="display-6 text-center">Here are all of your lists of tasks</h1>
         <table class="table table-primary table-striped table-hover w-50 mx-auto">
             <thead>
                 <tr class="table-dark">
@@ -44,9 +44,9 @@
             </thead>
             <tbody>
             {{ data_json|json_script:"data_json" }}
-            <script id="data_json" type="application/json"></script>
+                <script id="data_json" type="application/json"></script>
             {{ IntegrityError|json_script:"integrity_error" }}
-            <script id="integrity_error" type="application/json"></script>
+                <script id="integrity_error" type="application/json"></script>
             {% if all_bundles_list %}
                 {% for bundle in all_bundles_list %}
                     <tr>
@@ -55,8 +55,10 @@
                         <td>
                             <button class="btn btn-sm btn-danger float-end" type="button" id="delete_assurance{{ forloop.counter0 }}">Delete</button>
                             <button class="btn btn-sm btn-primary float-end" type="button">Share</button>
-                            <button class="btn btn-sm btn-success float-end" type="button">Go to</button>
-
+                            <form action="{% url 'main_page:show_tasks' %}" method="post">
+                                {% csrf_token %}
+                                <button name="bundle_choice" value="{{ bundle.name }}" class="btn btn-sm btn-success float-end" type="submit">Go to</button>
+                            </form>
                             <div id="delete_assurance_modal" class="modal_assurance">
                                 <div class="modal_assurance_content">
                                     <span class="close_modal_assurance">&times;</span>

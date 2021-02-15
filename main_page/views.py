@@ -26,8 +26,10 @@ def test(request):
 
 
 def show_tasks(request):
-    my_dict = {}
-    return render(request, 'main_page/listtasks.html', context=my_dict)
+    data_from_site = request.POST
+    bundle_name = data_from_site.get('bundle_choice')
+    context = {'bundle': get_bundle_by_name(bundle_name).task_set.all()}
+    return render(request, 'main_page/listtasks.html', context)
 
 
 def create_new_bundle_and_tasks(name_of_new_bundle, list_of_new_tasks):
@@ -35,3 +37,8 @@ def create_new_bundle_and_tasks(name_of_new_bundle, list_of_new_tasks):
     temp = Bundle.objects.filter(name=name_of_new_bundle)[0]
     for new_task in list_of_new_tasks:
         Task(name_of_bundle=temp, task_description=new_task).save()
+
+
+def get_bundle_by_name(name_of_bundle):
+    return Bundle.objects.filter(name=name_of_bundle)[0]
+
