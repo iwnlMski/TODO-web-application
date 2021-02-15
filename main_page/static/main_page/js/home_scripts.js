@@ -5,9 +5,10 @@ $(document).ready(function(){
     }
 
     $(".delete_button").click(function() {
-    var fired_button = $(this).val();
-    del_message = "Are you sure you want to delete bundle: " + fired_button + "?"
-    $('#delete_content').text(del_message)
+        var fired_button = $(this).val();
+        del_message = "Are you sure you want to delete bundle: " + fired_button + "?"
+        $('#delete_content').text(del_message)
+        $('#confirm_deletion').val(fired_button)
     });
 
 

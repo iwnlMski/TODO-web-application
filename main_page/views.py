@@ -7,7 +7,11 @@ from django.db import IntegrityError
 def index(request):
     context = {'all_bundles_list': Bundle.objects.all(), 'data_json': len(Bundle.objects.all())}
     data_from_site = request.POST
-    if data_from_site:
+
+    if data_from_site.get('bundle_to_delete'):
+        delete_bundle_and_tasks(data_from_site.get('bundle_to_delete'))
+
+    if data_from_site and data_from_site.get('new_bundle_name'):
         try:
             create_new_bundle_and_tasks(data_from_site.get('new_bundle_name'), data_from_site.getlist('list_of_tasks'))
         except IntegrityError:
@@ -45,3 +49,9 @@ def create_new_bundle_and_tasks(name_of_new_bundle, list_of_new_tasks):
 def get_bundle_by_name(name_of_bundle):
     return Bundle.objects.filter(name=name_of_bundle)[0]
 
+
+def delete_bundle_and_tasks(name_of_bundle):
+    bundle = Bundle.objects.filter(name=name_of_bundle)[0]
+    for task in bundle.task_set.all():
+        task.delete()
+    bundle.delete()
