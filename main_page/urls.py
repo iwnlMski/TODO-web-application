@@ -5,4 +5,5 @@ app_name = 'main_page'
 urlpatterns = [
     path('', views.index, name='index'),
     path('anothersite', views.test, name='test'),
+    path('listtasks', views.show_tasks, name='show_tasks'),
 ]

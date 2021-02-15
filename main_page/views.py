@@ -19,8 +19,15 @@ def index(request):
 
 # Create your views here.
 def test(request):
+
+    # context = {'bundle': }
     my_dict = {"test": "test"}
     return render(request, 'main_page/test.html', context=my_dict)
+
+
+def show_tasks(request):
+    my_dict = {}
+    return render(request, 'main_page/listtasks.html', context=my_dict)
 
 
 def create_new_bundle_and_tasks(name_of_new_bundle, list_of_new_tasks):

@@ -16,6 +16,11 @@ class Bundle(models.Model):
 class Task(models.Model):
     name_of_bundle = models.ForeignKey(Bundle, on_delete=models.CASCADE)
     task_description = models.CharField(max_length=256)
+    tuple_of_states = ('TODO', 'IN_PROGRESS', 'DONE')
+    current_state = tuple_of_states[0]
+
+    def update_state(self, number_of_state):
+        self.current_state[number_of_state]
 
     def __str__(self):
         return self.task_description
