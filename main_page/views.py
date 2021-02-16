@@ -7,7 +7,8 @@ from django.db import IntegrityError
 def index(request):
     context = {'all_bundles_list': Bundle.objects.all(), 'data_json': len(Bundle.objects.all())}
     data_from_site = request.POST
-
+    print(data_from_site)
+    
     if data_from_site.get('bundle_to_delete'):
         delete_bundle_and_tasks(data_from_site.get('bundle_to_delete'))
 
