@@ -8,7 +8,7 @@ def index(request):
     context = {'all_bundles_list': Bundle.objects.all(), 'data_json': len(Bundle.objects.all())}
     data_from_site = request.POST
     print(data_from_site)
-    
+
     if data_from_site.get('bundle_to_delete'):
         delete_bundle_and_tasks(data_from_site.get('bundle_to_delete'))
 
@@ -40,9 +40,17 @@ def show_tasks(request):
     return render(request, 'main_page/listtasks.html', context)
 
 
+def remove_empty_tasks(list_of_tasks):
+    for i in range(list_of_tasks.count('')):
+        list_of_tasks.remove('')
+    return list_of_tasks
+
+
 def create_new_bundle_and_tasks(name_of_new_bundle, list_of_new_tasks):
     Bundle(name=name_of_new_bundle, created_date=timezone.now()).save()
     temp = Bundle.objects.filter(name=name_of_new_bundle)[0]
+
+    list_of_new_tasks = remove_empty_tasks(list_of_new_tasks)
     for new_task in list_of_new_tasks:
         Task(name_of_bundle=temp, task_description=new_task).save()
 
