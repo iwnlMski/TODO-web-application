@@ -7,7 +7,6 @@ from django.db import IntegrityError
 def index(request):
     context = {}
     data_from_site = request.POST
-    print(data_from_site)
 
     if data_from_site.get('bundle_to_delete'):
         delete_bundle_and_tasks(data_from_site.get('bundle_to_delete'))
@@ -31,10 +30,14 @@ def test(request):
 
 def show_tasks(request):
     data_from_site = request.POST
-    if data_from_site:
+    if data_from_site.get('bundle_choice'):
         bundle_name = data_from_site.get('bundle_choice')
         context = {'bundle': get_bundle_by_name(bundle_name).task_set.all(),
                    'progress': calculate_bundle_progress(bundle_name)}
+
+    elif data_from_site.get('task_move_right') or data_from_site.get('task_move_left'):
+        context = change_task_status_and_return_context(data_from_site)
+
     else:
         context = {}
     return render(request, 'main_page/listtasks.html', context)
@@ -68,7 +71,14 @@ def delete_bundle_and_tasks(bundle_name):
 
 def calculate_bundle_progress(bundle_name):
     bundle = Bundle.objects.filter(name=bundle_name)[0]
-    print(len(bundle.task_set.all().filter(current_status=3)))
-    print(len(bundle.task_set.all().filter(current_status=1)))
-    print(len(bundle.task_set.all()))
     return len(bundle.task_set.all().filter(current_status=3)) / len(bundle.task_set.all()) * 100
+
+
+def change_task_status_and_return_context(data):
+    task_description = data.get('task_move_right') if data.get('task_move_right') else data.get('task_move_left')
+    task = Task.objects.filter(task_description=task_description)[0]
+    bundle_name = task.name_of_bundle
+    task.update_status(1 if data.get('task_move_right') else -1)
+    context = {'bundle': get_bundle_by_name(bundle_name).task_set.all(),
+               'progress': calculate_bundle_progress(bundle_name)}
+    return context

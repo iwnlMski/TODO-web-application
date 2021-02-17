@@ -22,7 +22,9 @@ class Task(models.Model):
     current_status = models.IntegerField(choices=STATUS_CHOICES, default=1)
 
     def update_status(self, new_state_number):
-        self.current_status = new_state_number
+        if 0 < (self.current_status + new_state_number) < 4:
+            self.current_status += new_state_number
+            self.save()
 
     def __str__(self):
         return self.task_description
