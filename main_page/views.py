@@ -5,7 +5,7 @@ from django.db import IntegrityError
 
 
 def index(request):
-    context = {'all_bundles_list': Bundle.objects.all(), 'data_json': len(Bundle.objects.all())}
+    context = {}
     data_from_site = request.POST
     print(data_from_site)
 
@@ -16,25 +16,25 @@ def index(request):
         try:
             create_new_bundle_and_tasks(data_from_site.get('new_bundle_name'), data_from_site.getlist('list_of_tasks'))
         except IntegrityError:
-            print("it didnt work")
             context['IntegrityError'] = 'Couldn\'t create bundle. Bundle with that name already exists '
 
+    context['all_bundles_list'] = Bundle.objects.all()
+    context['data_json'] = len(Bundle.objects.all())
     return render(request, 'main_page/index.html', context)
 
 
 # Create your views here.
 def test(request):
-
-    # context = {'bundle': }
-    my_dict = {"test": "test"}
-    return render(request, 'main_page/test.html', context=my_dict)
+    context = {}
+    return render(request, 'main_page/test.html', context)
 
 
 def show_tasks(request):
     data_from_site = request.POST
     if data_from_site:
         bundle_name = data_from_site.get('bundle_choice')
-        context = {'bundle': get_bundle_by_name(bundle_name).task_set.all()}
+        context = {'bundle': get_bundle_by_name(bundle_name).task_set.all(),
+                   'progress': calculate_bundle_progress(bundle_name)}
     else:
         context = {}
     return render(request, 'main_page/listtasks.html', context)
@@ -55,12 +55,20 @@ def create_new_bundle_and_tasks(name_of_new_bundle, list_of_new_tasks):
         Task(name_of_bundle=temp, task_description=new_task).save()
 
 
-def get_bundle_by_name(name_of_bundle):
-    return Bundle.objects.filter(name=name_of_bundle)[0]
+def get_bundle_by_name(bundle_name):
+    return Bundle.objects.filter(name=bundle_name)[0]
 
 
-def delete_bundle_and_tasks(name_of_bundle):
-    bundle = Bundle.objects.filter(name=name_of_bundle)[0]
+def delete_bundle_and_tasks(bundle_name):
+    bundle = Bundle.objects.filter(name=bundle_name)[0]
     for task in bundle.task_set.all():
         task.delete()
     bundle.delete()
+
+
+def calculate_bundle_progress(bundle_name):
+    bundle = Bundle.objects.filter(name=bundle_name)[0]
+    print(len(bundle.task_set.all().filter(current_status=3)))
+    print(len(bundle.task_set.all().filter(current_status=1)))
+    print(len(bundle.task_set.all()))
+    return len(bundle.task_set.all().filter(current_status=3)) / len(bundle.task_set.all()) * 100
