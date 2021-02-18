@@ -11,8 +11,9 @@ class Bundle(models.Model):
 
 
 class Task(models.Model):
-    name_of_bundle = models.ForeignKey(Bundle, on_delete=models.CASCADE)
-    task_title = models.CharField(max_length=256)
+    parent_bundle = models.ForeignKey(Bundle, on_delete=models.CASCADE)
+    task_title = models.CharField(max_length=64)
+    task_description = models.CharField(max_length=512, default='')
 
     STATUS_CHOICES = (
         (1, 'TODO'),
