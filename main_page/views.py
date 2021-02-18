@@ -26,7 +26,7 @@ def index(request):
 # Create your views here.
 def test(request):
     context = {}
-    return render(request, 'main_page/test.html', context)
+    return render(request, 'main_page/createlist.html', context)
 
 
 def show_tasks(request):
