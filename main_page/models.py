@@ -12,7 +12,7 @@ class Bundle(models.Model):
 
 class Task(models.Model):
     name_of_bundle = models.ForeignKey(Bundle, on_delete=models.CASCADE)
-    task_description = models.CharField(max_length=256)
+    task_title = models.CharField(max_length=256)
 
     STATUS_CHOICES = (
         (1, 'TODO'),
@@ -27,4 +27,4 @@ class Task(models.Model):
             self.save()
 
     def __str__(self):
-        return self.task_description
+        return self.task_title

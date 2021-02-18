@@ -14,14 +14,14 @@ def create_new_bundle_and_tasks(name_of_new_bundle, list_of_new_tasks):
 
     list_of_new_tasks = remove_empty_tasks(list_of_new_tasks)
     for new_task in list_of_new_tasks:
-        Task(name_of_bundle=bundle, task_description=new_task).save()
+        Task(name_of_bundle=bundle, task_title=new_task).save()
 
 
 def get_bundle_by_name(bundle_name):
     return Bundle.objects.filter(name=bundle_name)[0]
 
 def get_task_by_name(task_name):
-    return Task.objects.filter(task_description=task_name)[0]
+    return Task.objects.filter(task_title=task_name)[0]
 
 
 def delete_bundle_and_tasks(bundle_name):
@@ -40,8 +40,8 @@ def calculate_bundle_progress(bundle_name):
 
 
 def change_task_status_and_return_context(data):
-    task_description = data.get('task_move_right') if data.get('task_move_right') else data.get('task_move_left')
-    task = get_task_by_name(task_description)
+    task_title = data.get('task_move_right') if data.get('task_move_right') else data.get('task_move_left')
+    task = get_task_by_name(task_title)
     bundle_name = task.name_of_bundle
     task.update_status(1 if data.get('task_move_right') else -1)
     context = {'bundle': get_bundle_by_name(bundle_name).task_set.all(),

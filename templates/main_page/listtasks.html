@@ -48,12 +48,12 @@
                         {% if task.current_status == 1 %}
                             <tr class="table-success">
                                 <td class="table-success">
-                                    {{ task.task_description }}
+                                    {{ task.task_title }}
                                 </td>
                                 <td>
                                     <form action="{% url 'main_page:show_tasks' %}" method="post">
                                         {% csrf_token %}
-                                        <button name="task_move_right" value="{{ task.task_description }}"
+                                        <button name="task_move_right" value="{{ task.task_title }}"
                                             class="btn btn-sm btn-success float-end" type="submit">🢂
                                         </button>
                                     </form>
@@ -70,15 +70,15 @@
                             {% if task.current_status == 2 %}
                                 <tr class="table-info">
                                     <td class="table-info">
-                                        {{ task.task_description }}
+                                        {{ task.task_title }}
                                     </td>
                                     <td>
                                         <form action="{% url 'main_page:show_tasks' %}" method="post">
                                             {% csrf_token %}
-                                            <button name="task_move_right" value="{{ task.task_description }}"
+                                            <button name="task_move_right" value="{{ task.task_title }}"
                                                 class="btn btn-sm btn-info float-end" type="submit">🢂
                                             </button>
-                                            <button name="task_move_left" value="{{ task.task_description }}"
+                                            <button name="task_move_left" value="{{ task.task_title }}"
                                                 class="btn btn-sm btn-info float-end" type="submit">🢀
                                             </button>
                                         </form>
@@ -95,12 +95,12 @@
                             {% if task.current_status == 3 %}
                                 <tr class="table-warning">
                                     <td class="table-warning">
-                                        {{ task.task_description }}
+                                        {{ task.task_title }}
                                     </td>
                                     <td>
                                         <form action="{% url 'main_page:show_tasks' %}" method="post">
                                             {% csrf_token %}
-                                            <button name="task_move_left" value="{{ task.task_description }}"
+                                            <button name="task_move_left" value="{{ task.task_title }}"
                                                 class="btn btn-sm btn-warning float-end" type="submit">🢀
                                             </button>
                                         </form>

@@ -23,7 +23,6 @@ def index(request):
     return render(request, 'main_page/index.html', context)
 
 
-# Create your views here.
 def test(request):
     context = {}
     return render(request, 'main_page/createlist.html', context)
