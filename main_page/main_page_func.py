@@ -56,3 +56,13 @@ def add_description_to_task_and_return_bundle(task_id, description):
     task.save()
     return task.parent_bundle
 
+
+def change_task_title_and_return_bundle(task_id, new_title):
+    task = Task.objects.filter(id=task_id)[0]
+    task.task_title = new_title
+    task.save()
+    return task.parent_bundle
+
+
+def get_bundle_by_taskid(task_id):
+    return Task.objects.filter(id=task_id)[0].parent_bundle

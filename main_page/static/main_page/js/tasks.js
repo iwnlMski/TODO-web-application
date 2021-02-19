@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    $('#input_new_title').css('display', 'none')
 
     $(document).on('click', '.show_task', function () {
         var fired_button = $(this).val();
@@ -21,6 +22,19 @@ $(document).ready(function(){
 
     $(document).on('click', '#show_textarea', function () {
         $('#message-text').css('display', 'block')
+        $('#show_textarea').css('display', 'none')
+    })
+
+    $(document).on('click', '#change_title', function () {
+        $('#change_title').css('display', 'none')
+        $('.h5_task_title').css('display', 'none')
+        $('#input_new_title').css('display', 'block')
+    })
+
+    $(document).on('click', '#close_modal', function () {
+        $('#input_new_title').css('display', 'none')
+        $('.h5_task_title').css('display', 'block')
+        $('#change_title').css('display', 'block')
     })
 
 })

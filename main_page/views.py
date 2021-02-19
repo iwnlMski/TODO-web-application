@@ -39,13 +39,23 @@ def show_tasks(request):
     elif request_data.get('task_move_right') or request_data.get('task_move_left'):
         context = change_task_status_and_return_context(request_data)
 
-    elif request_data.get('task_description') or request_data.get('task_description') == '':
+    elif request_data.get('task_description'):
         bundle = add_description_to_task_and_return_bundle(request_data.get('task_to_change'),
                                                            request_data.get('task_description'))
         context = {'bundle': bundle.task_set.all(),
                    'progress': calculate_bundle_progress(bundle.name)}
+
+    elif request_data.get('new_task_title'):
+        bundle = change_task_title_and_return_bundle(request_data.get('task_to_change'),
+                                                     request_data.get('new_task_title'))
+        context = {'bundle': bundle.task_set.all(),
+                   'progress': calculate_bundle_progress(bundle.name)}
+
     else:
-        context = {}
+        bundle = get_bundle_by_taskid(request_data.get('task_to_change'))
+        context = {'bundle': bundle.task_set.all(),
+                   'progress': calculate_bundle_progress(bundle.name)}
+
     return render(request, 'main_page/listtasks.html', context)
 
 

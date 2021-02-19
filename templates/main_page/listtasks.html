@@ -81,7 +81,7 @@
                                 {{ task.task_title }}
                             </td>
                             <td>
-                                <button value="{{ task.id }}{{ task.task_title }}"
+                                <button value="{{ task.id }}{{ task.task_title }}~{{ task.task_description }}"
                                         class="btn btn-sm btn-outline-info float-end show_task"
                                         type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Show
                                 </button>
@@ -110,7 +110,7 @@
                                 {{ task.task_title }}
                             </td>
                             <td>
-                                <button value="{{ task.id }}{{ task.task_title }}"
+                                <button value="{{ task.id }}{{ task.task_title }}~{{ task.task_description }}"
                                         class="btn btn-sm btn-outline-warning float-end show_task"
                                         type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Show
                                 </button>
@@ -136,14 +136,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title h5_task_title" id="staticBackdropLabel"></h5>
+                    <input type="text" id="input_new_title" name="new_task_title" class="form-control" placeholder="New Task Title" aria-describedby="basic-addon1" maxlength="40">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="change_title">🖊️</button>
                     <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
+                            aria-label="Close" id="close_modal"></button>
                 </div>
                 <div class="modal-body">
                     <em><p id="description_tag" ></p></em>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label" id="addchangedesc">Add Description</label>
-                        <button type="button" class="btn btn-sm btn-outline-secondary" id="show_textarea">+</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" id="show_textarea">🖊️</button>
                         <textarea name="task_description" class="form-control" id="message-text"
                                   placeholder="Give your task some more details"></textarea>
                     </div>
