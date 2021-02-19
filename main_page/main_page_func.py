@@ -37,7 +37,7 @@ def calculate_bundle_progress(bundle_name):
     bundle = get_bundle_by_name(bundle_name)
     count_of_done_tasks = len(bundle.task_set.all().filter(current_status=3))
     count_of_all_tasks = len(bundle.task_set.all())
-    return count_of_done_tasks / count_of_all_tasks * 100
+    return (count_of_done_tasks / count_of_all_tasks * 100) if count_of_all_tasks != 0 else 0
 
 
 def change_task_status_and_return_context(data):
@@ -45,8 +45,9 @@ def change_task_status_and_return_context(data):
     task = get_task_by_name(task_title)
     bundle_name = task.parent_bundle
     task.update_status(1 if data.get('task_move_right') else -1)
-    context = {'bundle': get_bundle_by_name(bundle_name).task_set.all(),
-               'progress': calculate_bundle_progress(bundle_name)}
+    context = {'tasks_from_bundle': get_bundle_by_name(bundle_name).task_set.all(),
+               'progress': calculate_bundle_progress(bundle_name),
+               'bundle_name': bundle_name}
     return context
 
 
@@ -66,3 +67,8 @@ def change_task_title_and_return_bundle(task_id, new_title):
 
 def get_bundle_by_taskid(task_id):
     return Task.objects.filter(id=task_id)[0].parent_bundle
+
+
+def delete_task_by_id(task_id):
+    task = Task.objects.filter(id=task_id)[0]
+    task.delete()

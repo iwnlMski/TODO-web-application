@@ -33,8 +33,9 @@ def show_tasks(request):
     print(request_data)
     if request_data.get('bundle_choice'):
         bundle_name = request_data.get('bundle_choice')
-        context = {'bundle': get_bundle_by_name(bundle_name).task_set.all(),
-                   'progress': calculate_bundle_progress(bundle_name)}
+        context = {'tasks_from_bundle': get_bundle_by_name(bundle_name).task_set.all(),
+                   'progress': calculate_bundle_progress(bundle_name),
+                   'bundle_name': bundle_name}
 
     elif request_data.get('task_move_right') or request_data.get('task_move_left'):
         context = change_task_status_and_return_context(request_data)
@@ -42,19 +43,29 @@ def show_tasks(request):
     elif request_data.get('task_description'):
         bundle = add_description_to_task_and_return_bundle(request_data.get('task_to_change'),
                                                            request_data.get('task_description'))
-        context = {'bundle': bundle.task_set.all(),
-                   'progress': calculate_bundle_progress(bundle.name)}
+        context = {'tasks_from_bundle': bundle.task_set.all(),
+                   'progress': calculate_bundle_progress(bundle.name),
+                   'bundle_name': bundle.name}
 
     elif request_data.get('new_task_title'):
         bundle = change_task_title_and_return_bundle(request_data.get('task_to_change'),
                                                      request_data.get('new_task_title'))
-        context = {'bundle': bundle.task_set.all(),
-                   'progress': calculate_bundle_progress(bundle.name)}
+        context = {'tasks_from_bundle': bundle.task_set.all(),
+                   'progress': calculate_bundle_progress(bundle.name),
+                   'bundle_name': bundle.name}
+
+    elif request_data.get('task_to_delete'):
+        bundle = get_bundle_by_taskid(request_data.get('task_to_delete'))
+        delete_task_by_id(request_data.get('task_to_delete'))
+        context = {'tasks_from_bundle': bundle.task_set.all(),
+                   'progress': calculate_bundle_progress(bundle.name),
+                   'bundle_name': bundle.name}
 
     else:
         bundle = get_bundle_by_taskid(request_data.get('task_to_change'))
-        context = {'bundle': bundle.task_set.all(),
-                   'progress': calculate_bundle_progress(bundle.name)}
+        context = {'tasks_from_bundle': bundle.task_set.all(),
+                   'progress': calculate_bundle_progress(bundle.name),
+                   'bundle_name': bundle.name}
 
     return render(request, 'main_page/listtasks.html', context)
 
