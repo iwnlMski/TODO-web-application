@@ -48,3 +48,11 @@ def change_task_status_and_return_context(data):
     context = {'bundle': get_bundle_by_name(bundle_name).task_set.all(),
                'progress': calculate_bundle_progress(bundle_name)}
     return context
+
+
+def add_description_to_task_and_return_bundle(task_id, description):
+    task = Task.objects.filter(id=task_id)[0]
+    task.task_description = description
+    task.save()
+    return task.parent_bundle
+

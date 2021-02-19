@@ -30,6 +30,7 @@ def test(request):
 
 def show_tasks(request):
     request_data = request.POST
+    print(request_data)
     if request_data.get('bundle_choice'):
         bundle_name = request_data.get('bundle_choice')
         context = {'bundle': get_bundle_by_name(bundle_name).task_set.all(),
@@ -38,6 +39,11 @@ def show_tasks(request):
     elif request_data.get('task_move_right') or request_data.get('task_move_left'):
         context = change_task_status_and_return_context(request_data)
 
+    elif request_data.get('task_description') or request_data.get('task_description') == '':
+        bundle = add_description_to_task_and_return_bundle(request_data.get('task_to_change'),
+                                                           request_data.get('task_description'))
+        context = {'bundle': bundle.task_set.all(),
+                   'progress': calculate_bundle_progress(bundle.name)}
     else:
         context = {}
     return render(request, 'main_page/listtasks.html', context)

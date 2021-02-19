@@ -51,8 +51,8 @@
         </tr>
         </thead>
         <tbody>
-        {{ data_json|json_script:"data_json" }}
-        <script id="data_json" type="application/json"></script>
+{#        {{ data_json|json_script:"data_json" }}#}
+{#        <script id="data_json" type="application/json"></script>#}
         {{ IntegrityError|json_script:"integrity_error" }}
         <script id="integrity_error" type="application/json"></script>
         {% if all_bundles_list %}
