@@ -33,9 +33,6 @@
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="/anothersite">New list</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="/listtasks">Tasks</a>
-            </li>
         </ul>
     </div>
 </nav>
@@ -51,8 +48,6 @@
         </tr>
         </thead>
         <tbody>
-{#        {{ data_json|json_script:"data_json" }}#}
-{#        <script id="data_json" type="application/json"></script>#}
         {{ IntegrityError|json_script:"integrity_error" }}
         <script id="integrity_error" type="application/json"></script>
         {% if all_bundles_list %}
@@ -64,7 +59,10 @@
                         <button value="{{ bundle.name }}" class="btn btn-sm btn-danger float-end delete_button"
                                 type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Delete
                         </button>
-                        <button class="btn btn-sm btn-primary float-end" type="button">Share</button>
+                        <form action="{% url 'main_page:share_bundle' %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn btn-sm btn-primary float-end" type="submit" name="bundle_to_share" value="{{ bundle.id }}">Share</button>
+                        </form>
                         <form action="{% url 'main_page:show_tasks' %}" method="post">
                             {% csrf_token %}
                             <button name="bundle_choice" value="{{ bundle.name }}"

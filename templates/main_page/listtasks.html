@@ -33,9 +33,6 @@
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="/anothersite">New list</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/listtasks">Tasks</a>
-            </li>
         </ul>
     </div>
 </nav>
@@ -55,18 +52,20 @@
                             <td class="table-success" value="{{ task.task_title }}">
                                 <form action="{% url 'main_page:show_tasks' %}" method="post">
                                     {% csrf_token %}
-                                    <button name="task_to_delete" id="remove_task" type="submit" class="btn btn-outline-secondary btn-sm" value="{{ task.id }}">✖️</button>
+                                    <button name="task_to_delete" id="remove_task" type="submit"
+                                            class="btn btn-outline-secondary btn-sm" value="{{ task.id }}">✖️
+                                    </button>
                                     {{ task.task_title }}
                                 </form>
                             </td>
                             <td>
-                                <button value="{{ task.id }}{{ task.task_title }}~{{ task.task_description }}"
+                                <button value="{{ task.id }}!{{ task.task_title }}~{{ task.task_description }}"
                                         class="btn btn-sm btn-outline-success float-end show_task"
                                         type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Show
                                 </button>
                                 <form action="{% url 'main_page:show_tasks' %}" method="post">
                                     {% csrf_token %}
-                                    <button name="task_move_right" value="{{ task.task_title }}"
+                                    <button name="task_move_right_id" value="{{ task.id }}"
                                             class="btn btn-sm btn-success float-end" type="submit">🢂
                                     </button>
                                 </form>
@@ -85,21 +84,23 @@
                             <td class="table-info">
                                 <form action="{% url 'main_page:show_tasks' %}" method="post">
                                     {% csrf_token %}
-                                    <button name="task_to_delete" id="remove_task" type="submit" class="btn btn-outline-secondary btn-sm" value="{{ task.id }}">✖️</button>
+                                    <button name="task_to_delete" id="remove_task" type="submit"
+                                            class="btn btn-outline-secondary btn-sm" value="{{ task.id }}">✖️
+                                    </button>
                                     {{ task.task_title }}
                                 </form>
                             </td>
                             <td>
-                                <button value="{{ task.id }}{{ task.task_title }}~{{ task.task_description }}"
+                                <button value="{{ task.id }}!{{ task.task_title }}~{{ task.task_description }}"
                                         class="btn btn-sm btn-outline-info float-end show_task"
                                         type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Show
                                 </button>
                                 <form action="{% url 'main_page:show_tasks' %}" method="post">
                                     {% csrf_token %}
-                                    <button name="task_move_right" value="{{ task.task_title }}"
+                                    <button name="task_move_right_id" value="{{ task.id }}"
                                             class="btn btn-sm btn-info float-end" type="submit">🢂
                                     </button>
-                                    <button name="task_move_left" value="{{ task.task_title }}"
+                                    <button name="task_move_left_id" value="{{ task.id }}"
                                             class="btn btn-sm btn-info float-end" type="submit">🢀
                                     </button>
                                 </form>
@@ -118,18 +119,20 @@
                             <td class="table-warning">
                                 <form action="{% url 'main_page:show_tasks' %}" method="post">
                                     {% csrf_token %}
-                                    <button name="task_to_delete" id="remove_task" type="submit" class="btn btn-outline-secondary btn-sm" value="{{ task.id }}">✖️</button>
+                                    <button name="task_to_delete" id="remove_task" type="submit"
+                                            class="btn btn-outline-secondary btn-sm" value="{{ task.id }}">✖️
+                                    </button>
                                     {{ task.task_title }}
                                 </form>
                             </td>
                             <td>
-                                <button value="{{ task.id }}{{ task.task_title }}~{{ task.task_description }}"
+                                <button value="{{ task.id }}!{{ task.task_title }}~{{ task.task_description }}"
                                         class="btn btn-sm btn-outline-warning float-end show_task"
                                         type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Show
                                 </button>
                                 <form action="{% url 'main_page:show_tasks' %}" method="post">
                                     {% csrf_token %}
-                                    <button name="task_move_left" value="{{ task.task_title }}"
+                                    <button name="task_move_left_id" value="{{ task.id }}"
                                             class="btn btn-sm btn-warning float-end" type="submit">🢀
                                     </button>
                                 </form>
@@ -149,13 +152,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title h5_task_title" id="staticBackdropLabel"></h5>
-                    <input type="text" id="input_new_title" name="new_task_title" class="form-control" placeholder="New Task Title" aria-describedby="basic-addon1" maxlength="40">
+                    <input type="text" id="input_new_title" name="new_task_title" class="form-control"
+                           placeholder="New Task Title" aria-describedby="basic-addon1" maxlength="40">
                     <button type="button" class="btn btn-outline-secondary btn-sm" id="change_title">🖊️</button>
                     <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal"
                             aria-label="Close" id="close_modal"></button>
                 </div>
                 <div class="modal-body">
-                    <em><p id="description_tag" ></p></em>
+                    <em><p id="description_tag"></p></em>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label" id="addchangedesc">Add Description</label>
                         <button type="button" class="btn btn-sm btn-outline-secondary" id="show_textarea">🖊️</button>

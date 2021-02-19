@@ -21,8 +21,16 @@ def get_bundle_by_name(bundle_name):
     return Bundle.objects.filter(name=bundle_name)[0]
 
 
+def get_bundle_by_id(bundle_id):
+    return Bundle.objects.filter(id=bundle_id)[0]
+
+
 def get_task_by_name(task_name):
     return Task.objects.filter(task_title=task_name)[0]
+
+
+def get_task_by_id(task_id):
+    return Task.objects.filter(id=task_id)[0]
 
 
 def delete_bundle_and_tasks(bundle_name):
@@ -41,10 +49,10 @@ def calculate_bundle_progress(bundle_name):
 
 
 def change_task_status_and_return_context(data):
-    task_title = data.get('task_move_right') if data.get('task_move_right') else data.get('task_move_left')
-    task = get_task_by_name(task_title)
+    task_id = data.get('task_move_right_id') if data.get('task_move_right_id') else data.get('task_move_left_id')
+    task = get_task_by_id(task_id)
     bundle_name = task.parent_bundle
-    task.update_status(1 if data.get('task_move_right') else -1)
+    task.update_status(1 if data.get('task_move_right_id') else -1)
     context = {'tasks_from_bundle': get_bundle_by_name(bundle_name).task_set.all(),
                'progress': calculate_bundle_progress(bundle_name),
                'bundle_name': bundle_name}
@@ -72,3 +80,28 @@ def get_bundle_by_taskid(task_id):
 def delete_task_by_id(task_id):
     task = Task.objects.filter(id=task_id)[0]
     task.delete()
+
+
+def convert_bundle_into_txt(bundle_id):
+    bundle = get_bundle_by_id(bundle_id)
+    tasks_from_bundle = bundle.task_set.all()
+
+    header = f"Name: {bundle.name} \n Created: {bundle.created_date} \n\nTODO:"
+    # todo_part = f"\n\t {task.task_title}:\n\t\t{task.task_description}\n"
+    for task in tasks_from_bundle:
+        if task.current_status == 1:
+            header += f"\n\t {task.task_title}:\n\t\t{task.task_description}\n"
+
+    header += f"IN PROGRESS:"
+
+    for task in tasks_from_bundle:
+        if task.current_status == 2:
+            header += f"\n\t {task.task_title}:\n\t\t{task.task_description}\n"
+
+    header += f"DONE:"
+
+    for task in tasks_from_bundle:
+        if task.current_status == 3:
+            header += f"\n\t {task.task_title}:\n\t\t{task.task_description}\n"
+
+    return header

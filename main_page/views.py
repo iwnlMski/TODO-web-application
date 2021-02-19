@@ -37,7 +37,7 @@ def show_tasks(request):
                    'progress': calculate_bundle_progress(bundle_name),
                    'bundle_name': bundle_name}
 
-    elif request_data.get('task_move_right') or request_data.get('task_move_left'):
+    elif request_data.get('task_move_right_id') or request_data.get('task_move_left_id'):
         context = change_task_status_and_return_context(request_data)
 
     elif request_data.get('task_description'):
@@ -70,3 +70,8 @@ def show_tasks(request):
     return render(request, 'main_page/listtasks.html', context)
 
 
+def share_bundle(request):
+    request_data = request.POST
+    print(convert_bundle_into_txt(request_data.get('bundle_to_share')))
+    context = {}
+    return render(request, 'main_page/sharebundle.html', context)

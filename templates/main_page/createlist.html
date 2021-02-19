@@ -33,9 +33,6 @@
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/anothersite">New list</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="/listtasks">Tasks</a>
-            </li>
         </ul>
     </div>
 </nav>
@@ -45,7 +42,7 @@
         {% csrf_token %}
         <div class="input-group w-50 mx-auto">
             <input type="text" name="new_bundle_name" class="form-control" placeholder="Title of your list"
-                   aria-label="" aria-describedby="basic-addon1" required maxlength="40">
+                   aria-label="" aria-describedby="basic-addon1" required maxlength="30">
             <div class="input-group-append">
                 <button class="btn btn-success" type="submit" value="new_list">Save list</button>
             </div>
@@ -56,7 +53,7 @@
                     <td>
                         <div class="input-group">
                             <input type="text" name="list_of_tasks" class="form-control" placeholder="Task to do"
-                                   aria-label="" aria-describedby="basic-addon1" maxlength="40" required>
+                                   aria-label="" aria-describedby="basic-addon1" maxlength="25" required>
                         </div>
                     </td>
                 </tr>
