@@ -1,5 +1,6 @@
 from .models import Bundle, Task
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 def remove_empty_tasks(list_of_tasks):
@@ -105,3 +106,10 @@ def convert_bundle_into_txt(bundle_id):
             header += f"\n\t {task.task_title}:\n\t\t{task.task_description}\n"
 
     return header
+
+
+def handle_register(request_data):
+    username = request_data.get('new_user')
+    password = request_data.get('new_pass')
+    email = request_data.get('new_email')
+    User.objects.create_user(username=username, email=email, password=password).save()

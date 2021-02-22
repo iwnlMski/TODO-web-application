@@ -75,3 +75,12 @@ def share_bundle(request):
     print(convert_bundle_into_txt(request_data.get('bundle_to_share')))
     context = {}
     return render(request, 'main_page/sharebundle.html', context)
+
+
+def login(request):
+    request_data = request.POST
+    if request_data.get('new_user'):
+        handle_register(request_data)
+
+    context = {}
+    return render(request, 'main_page/login.html', context)
