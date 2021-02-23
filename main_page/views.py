@@ -3,6 +3,7 @@ from .models import Bundle, Task
 from django.utils import timezone
 from django.db import IntegrityError
 from .main_page_func import *
+from django.contrib.auth import authenticate
 
 
 def index(request):
@@ -77,10 +78,28 @@ def share_bundle(request):
     return render(request, 'main_page/sharebundle.html', context)
 
 
-def login(request):
-    request_data = request.POST
-    if request_data.get('new_user'):
-        handle_register(request_data)
+# def login(request):
+#     request_data = request.POST
+#     if request_data.get('new_user'):
+#         handle_register(request_data)
+#
+#     context = {}
+#     return render(request, 'main_page/login.html', context)
 
-    context = {}
-    return render(request, 'main_page/login.html', context)
+
+# def authenticate(request):
+#     context = {}
+#     request_data = request.POST
+#     for i in range(100):
+#         print(request_data)
+#     user_name = request_data.get('username')
+#     pass_word = request_data.get('password')
+#     user = authenticate(username=user_name, password=pass_word)
+#
+#     if user is not None:
+#         context['all_bundles_list'] = Bundle.objects.all()
+#         context['data_json'] = len(Bundle.objects.all())
+#         render(request, 'main_page/index.html', context)
+#     else:
+#         render(request, 'main_page/login.html', context={})
+#

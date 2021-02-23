@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 class Bundle(models.Model):
     name = models.CharField(max_length=256, unique=True)
     created_date = models.DateTimeField('date of creation')
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
