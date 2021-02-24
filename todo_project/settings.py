@@ -35,6 +35,7 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     'main_page.apps.MainPageConfig',
+    'register.apps.RegisterConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'compressor',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +133,5 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
